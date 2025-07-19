@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yêu Mèo 💗</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffd1dc, #ffe6f0);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+    }
+
+    .heart {
+      font-size: 120px;
+      animation: beat 1s infinite alternate;
+      margin-top: 40px;
+    }
+
+    @keyframes beat {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+
+    .btns {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yes {
+      background-color: #ff69b4;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+      color: black;
+      position: relative;
+    }
+
+    #loveText {
+      font-size: 2.2rem;
+      margin-top: 30px;
+      color: #d10068;
+      display: none;
+      font-weight: bold;
+      animation: appear 1s ease-in;
+    }
+
+    @keyframes appear {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .falling-name {
+      position: absolute;
+      color: #ff1493;
+      animation: fall 5s linear infinite;
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+      font-family: 'Arial', sans-serif;
+    }
+
+    @keyframes fall {
+      0% { top: -5%; opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    .avatar {
+      position: absolute;
+      top: 20px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    #avt1 { left: 20px; }
+    #avt2 { right: 20px; }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- AVATARS -->
+  <img id="avt1" class="avatar" src="https://f21-zpc.zdn.vn/jxl/1123880515731010045/e9038e82e535536b0a24.jxl" />
+  <img id="avt2" class="avatar" src="https://f13-zpc.zdn.vn/jxl/8542089503910349678/7f1e51ba370d8153d81c.jxl" />
+
+  <!-- TRÁI TIM -->
+  <div class="heart">💗</div>
+
+  <!-- NÚT -->
+  <div class="btns">
+    <button id="yes">Có</button>
+    <button id="no">Không</button>
+  </div>
+
+  <!-- TỎ TÌNH -->
+  <div id="loveText">Anh Yêu Em Nhiều Lắm Mèo À 💞</div>
+
+  <!-- NHẠC -->
+  <audio id="music" autoplay loop>
+    <source src="https://voice-aac-dl.zdn.vn/108328113511410170/13f18757a723497d1032.aac" type="audio/aac">
+  </audio>
+
+  <!-- SCRIPT -->
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const loveText = document.getElementById('loveText');
+
+    // NO chạy trốn
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    });
+
+    // YES → tỏ tình + tên rơi
+    yesBtn.addEventListener('click', () => {
+      loveText.style.display = 'block';
+      startFallingNames();
+    });
+
+    // Tên rơi: Minh Vũ 💗 Meo
+    function startFallingNames() {
+      setInterval(() => {
+        const name = document.createElement('div');
+        name.classList.add('falling-name');
+        name.textContent = 'Minh Vũ 💗 Meo';
+        name.style.left = Math.random() * window.innerWidth + 'px';
+        const size = Math.random() > 0.5 ? '20px' : '32px';
+        name.style.fontSize = size;
+        document.body.appendChild(name);
+
+        setTimeout(() => {
+          name.remove();
+        }, 6000);
+      }, 250);
+    }
+
+    // Tự phát nhạc
+    window.addEventListener("load", () => {
+      const music = document.getElementById("music");
+      music.play().catch(() => {
+        // Một số trình duyệt chặn autoplay, xử lý nếu cần
+        console.log("Tự phát nhạc bị chặn.");
+      });
+    });
+  </script>
+
+</body>
+</html>
